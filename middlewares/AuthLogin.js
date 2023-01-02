@@ -37,6 +37,8 @@ const AuthSeller = async (req, res, next) => {
                 }
             })
 
+            console.log(seller)
+
             if (seller.isVerified === 0){
                 return res.status(400).json({
                     message: 'Waiting for acc Admin'

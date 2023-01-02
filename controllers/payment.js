@@ -1,4 +1,5 @@
 const { Orders, Packages } = require('../models');
+const { SendNotification } = require('./notification')
 const { Api } = require('../config/payment');
 
 const paymentOrder = async (req, res) => {
@@ -18,6 +19,11 @@ const paymentOrder = async (req, res) => {
                     message: 'Payment not verify'
                 })
             }
+
+            if(statusResponse.transaction_status === 'pending'){
+                SendNotification(updateCount.userId, 1, "Payment Success!")
+            }
+
         });
 
         return res.status(200).json({
