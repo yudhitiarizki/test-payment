@@ -82,10 +82,10 @@ const getOrderUser = async (req, res) => {
         const order = orders.map((order) => {
             const { firstName, lastName } = order.Package.Service.Seller.User;
             const { title } = order.Package.Service;
-            const { type } = order.Package;
-            const { note, status, revisionLeft } = order;
+            const { type, orderId } = order.Package;
+            const { note, status, revisionLeft, response } = order;
 
-            return { firstName, lastName, title, type, note, status, revisionLeft }
+            return { orderId, firstName, lastName, title, type, note, status, revisionLeft, response }
         })
 
         return res.status(200).json({
@@ -392,7 +392,7 @@ const getOrderPending = async (req, res) => {
     try {
         const orders = await Orders.findAll({
             where: {
-                status: "Pending"
+                status: "pending"
             },
             include: [{
                 model: Packages,

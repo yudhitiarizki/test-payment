@@ -5,7 +5,7 @@ const cors = require('cors');
 
 const app = express();
 
-const router = require('./routes/index')
+const router = require('./routes/index');
 
 const PORT = process.env.PORT || 5000;
 const public = __dirname + "/public/";
@@ -17,12 +17,8 @@ app.use('/public/uploads', express.static(path.join(public, "uploads")));
 
 app.use('/', router);
 
-app.get('/', (req, res) => {
-    return res.json({
-        mes: 'gg'
-    })
-})
+app.get('/', function(req, res) {
+    res.sendFile(path.join(public + "index.html"));
+});
 
-app.listen(PORT, () => {
-    console.log("ok")
-})
+app.listen(PORT, () => console.log(`Server Running on PORT ${PORT}`))

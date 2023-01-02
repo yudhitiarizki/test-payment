@@ -8,7 +8,7 @@ const Api = new midtransClient.CoreApi({
 
 const Parameter = ( orderId, paymentMethod, user, package ) => {
     return {
-        payment_type: "bank_transfer",
+        payment_type: "bri_epay",
         transaction_details: {
             gross_amount: package.price,
             order_id: orderId,
@@ -26,10 +26,7 @@ const Parameter = ( orderId, paymentMethod, user, package ) => {
                 quantity: 1,
                 name: package.Service.title
             }
-        ],
-        bank_transfer:{
-            bank: paymentMethod
-        }
+        ]
     };
 };
 

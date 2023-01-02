@@ -3,11 +3,11 @@ const { Api } = require('../config/payment');
 
 const paymentOrder = async (req, res) => {
     try {
-        Api.transaction.notification(notificationJson)
-        .then((statusResponse)=>{
+        Api.transaction.notification(req.body)
+        .then(async (statusResponse)=>{
             const orderId = statusResponse.order_id;
 
-            const updateCount = await Orders.update({status: 'Pending', response: JSON.stringify(statusResponse)},{
+            const updateCount = await Orders.update({status: statusResponse.transaction_status, response: JSON.stringify(statusResponse)},{
                 where: {
                     orderId: orderId
                 }
